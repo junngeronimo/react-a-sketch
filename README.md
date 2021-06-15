@@ -1,6 +1,10 @@
 # React-A-Sketch
 
-Goal: To build an Etch-A-Sketch canvas style web app.
+Goal: To build an Etch-A-Sketch canvas style web app and gain experience in React.
+
+## Notes: 
+- Using styled-components to apply CSS to components
+- Project course can be found here: [PROJECT: ETCH-A-SKETCH](https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/etch-a-sketch-project)
 
 
 # Getting Started with Create React App
