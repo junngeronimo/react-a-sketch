@@ -3,3 +3,12 @@
   padding-bottom: 45%;
 
 }
+
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+input {
+  padding: 5px;
+  font-size: medium;
+}

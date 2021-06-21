@@ -10,7 +10,7 @@ import React from 'react';
 // }
 
 const GridContainer = styled.div`
-  border: 10px solid red;
+  border: 0.5px solid red;
 
   display: grid;
   
@@ -18,9 +18,9 @@ const GridContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
 
-  grid-template-columns: repeat(${(props) => props.gridSize}, 1fr);
-  height: ${(props) => props.gridSize}vw;
-  width: ${(props) => props.gridSize}vw;
+  grid-template-columns: repeat(${(props) => props.gridsize}, 1fr);
+  height: ${(props) => props.gridsize}vw;
+  width: ${(props) => props.gridsize}vw;
   
 `;
 
@@ -33,7 +33,8 @@ const Cell = styled.div`
   transition:0s 1000000s;
 
   &:hover {
-    background-color: darkgray;
+    background-color: rgba(0,0,0,1);
+    
     transition:0s;
   }
 
@@ -41,14 +42,14 @@ const Cell = styled.div`
     background-color: white;
   }
 
-
-
   ${'' /* ${(props) => props.collapse && media[props.collapse](`
     display: none;
   `)} */}
 `;
 
-const GridButton = styled.button`
+
+
+export const GridButton = styled.button`
   background: white;
   font-size: 0.75em;
   margin: 1em;
@@ -60,13 +61,15 @@ const GridButton = styled.button`
   } 
 `;
 
-export function Grid(props) {
+
+
+export function GridGenerate(props) {
   let cells = [];
 
   // console.table(props);
 
-  for (let i = 0; i < (props.gridSize*props.gridSize); i++) {
-    cells.push(<Cell>{props.message}</Cell>);
+  for (let i = 0; i < (props.gridsize*props.gridsize); i++) {
+    cells.push(<Cell></Cell>);
   }
   let newGrid = cells.map((cell, j) =>
     <div key={j}>
@@ -75,7 +78,7 @@ export function Grid(props) {
   );
   
   return (
-    <GridContainer gridSize={props.gridSize}>
+    <GridContainer gridsize={props.gridsize}>
       
       {newGrid}
       
@@ -84,68 +87,47 @@ export function Grid(props) {
 }
 
 export class GridForm extends React.Component {
-  constructor(props) {
-    super(props);
 
-    // console.log(props);
+  handleInputGridChange = (event) => {
+
+    this.props.onChange(event);
     
-    this.state = {
-      message: props.message,
-      gridSize: 32,
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    let { value, min, max } = event.target;
-    value = Math.max(Number(min), Math.min(Number(max), Number(value)));
-    this.setState({gridSize: value});
-    // console.log(this.state);
-  }
-
-  // handleSubmit(event) {
-  //   alert('A grid size was submitted: ' + this.state.gridSize);
-  //   event.preventDefault();
-  // }
-
-  handleClearButtonClick(event) {
-    this.setState({gridSize: this.state.gridSize})
   }
 
   render() {
     return (
+      <form>
+        <legend>
+          Grid Size ({this.props.value} by {this.props.value})
+          <input
+            type={this.props.type}
+            value={this.props.value}
+            onChange={(event) => this.handleInputGridChange(event)}
+            min={this.props.min}
+            max={this.props.max} />
+        </legend>
+      </form>
+
+    )
+  }
+}
+
+export class Grid extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onGridReset = this.onGridReset.bind(this);
+  }
+
+  onGridReset(event) {
+    this.props.onGridReset(event.target.value);
+  }
+
+  render() {  
+    return (
       <div>
-        <form>
-          <label>
-            Grid Size ({this.state.gridSize} by {this.state.gridSize}): 
-            <input 
-              type="number" 
-              value={this.state.gridSize} 
-              onChange={this.handleChange}
-              min="1"
-              max="100" 
-              />
-          </label>
-
-          {/* <GridButton 
-            onClick={() => this.handleSubmit()} 
-            type="submit">
-              Submit
-          </GridButton>  */}
-
-          <GridButton 
-            onClick={() => this.handleClearButtonClick()}
-            type="clear">
-            Clear
-          </GridButton>
-        </form>
-
-        <Grid message={this.state.message} gridSize={this.state.gridSize} >
+        <GridGenerate gridsize={this.props.gridsize}>
         
-        </Grid>
-
+        </GridGenerate> 
       </div>
       )
     }

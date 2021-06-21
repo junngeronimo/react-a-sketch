@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Grid from './Grid';
+import Etch from './Etch';
 
 test('renders learn react link', () => {
   render(<Etch />);

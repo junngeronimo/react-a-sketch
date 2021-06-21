@@ -2,7 +2,7 @@
 
 Goal: To build an Etch-A-Sketch canvas style web app and gain experience in React.
 
-The current state of the app provides contains a default 32x32 grid. Hovering over a cell of the grid colors the grid allowing you draw similarly to an Etch-A-Sketch. You can set the size of the grid manually to change the size of the canvas.
+The current state of the app provides contains a default 32x32 grid. Hovering over a cell of the grid colors the grid allowing you draw similarly to an Etch-A-Sketch. You can set the size of the grid manually to change the size of the canvas. Press reset to clear your current canvas.
 
 ## Notes: 
 - Using styled-components to apply CSS to components
